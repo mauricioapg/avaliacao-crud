@@ -6,6 +6,8 @@ import com.avaliacao.crud.avaliacao.model.Transfer;
 import com.avaliacao.crud.avaliacao.repository.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -34,13 +36,16 @@ public class TransferService {
         double finalValue = transferRequestDTO.getTransferValue() +
                 calcTaxValue(day, transferRequestDTO.getTransferValue()).getFinalValue();
 
+        DecimalFormat df = new DecimalFormat("#.00");
+        String formattedFinalValue = df.format(finalValue);
+
         transfer.setTransferTax(tax + "%");
-        transfer.setTransferValue(finalValue);
+        transfer.setTransferValue(Double.valueOf(formattedFinalValue.replace(',', '.')));
 
         return transferRepository.save(transfer);
     }
 
-    public void editTransfer(Long id, TransferRequestDTO TransferRequestDTO) throws Exception {
+    public void editTransfer(Long id, TransferRequestDTO transferRequestDTO) throws Exception {
 
         Optional<Transfer> transfer = transferRepository.findById(id);
 
@@ -48,11 +53,22 @@ public class TransferService {
             throw new Exception("Nenhuma transferência encontrada com esse id");
         }
 
-        transfer.get().setOriginAccount(TransferRequestDTO.getOriginAccount());
-        transfer.get().setDestinyAccount(TransferRequestDTO.getDestinyAccount());
-        transfer.get().setTransferValue(TransferRequestDTO.getTransferValue());
-        transfer.get().setTransferDate(LocalDateTime.parse(TransferRequestDTO.getTransferDate()));
+        transfer.get().setOriginAccount(transferRequestDTO.getOriginAccount());
+        transfer.get().setDestinyAccount(transferRequestDTO.getDestinyAccount());
+        transfer.get().setTransferValue(transferRequestDTO.getTransferValue());
+        transfer.get().setTransferDate(LocalDateTime.parse(transferRequestDTO.getTransferDate()));
         transfer.get().setScheduleDate(LocalDateTime.now());
+
+        int day = LocalDateTime.parse(transferRequestDTO.getTransferDate()).getDayOfMonth();
+        double tax = calcTaxValue(day, transferRequestDTO.getTransferValue()).getTax();
+        double finalValue = transferRequestDTO.getTransferValue() +
+                calcTaxValue(day, transferRequestDTO.getTransferValue()).getFinalValue();
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        String formattedFinalValue = df.format(finalValue);
+
+        transfer.get().setTransferTax(tax + "%");
+        transfer.get().setTransferValue(Double.valueOf(formattedFinalValue.replace(',', '.')));
 
         transferRepository.save(transfer.get());
     }
