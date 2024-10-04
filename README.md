@@ -35,7 +35,7 @@
     <br>
     <br>
 - Execute o seguinte comando para rodar o projeto e mantê-lo em segundo plano:
-  - start java -jar target/demo-0.0.1-SNAPSHOT.jar
+  - start java -jar target/avaliacao-0.0.1-SNAPSHOT
 
 
 ## Resumo
