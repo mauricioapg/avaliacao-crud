@@ -21,7 +21,7 @@
     <br>
     <br>
 - Execute o seguinte comando para rodar o projeto e mantê-lo em segundo plano:
-  - nohup java -jar target/demo-0.0.1-SNAPSHOT.jar &
+  - nohup java -jar target/avaliacao-0.0.1-SNAPSHOT &
 
 ### Windows
 - Se ainda não tiver o Maven instalado, faça o download  em: https://maven.apache.org/download.cgi e siga as instruções de instalação.
