@@ -17,11 +17,13 @@
     <br>
     <br>
 - Abra o diretório do projeto onde o arquivo pom.xml está localizado e execute:
-  - mvn clean install
+  - ./mvnw clean package
+    <br>
+  - ./mvnw spring-boot:run
     <br>
     <br>
 - Execute o seguinte comando para rodar o projeto e mantê-lo em segundo plano:
-  - nohup java -jar target/avaliacao-0.0.1-SNAPSHOT &
+  - nohup ./mvnw spring-boot:run &
 
 ### Windows
 - Se ainda não tiver o Maven instalado, faça o download  em: https://maven.apache.org/download.cgi e siga as instruções de instalação.
