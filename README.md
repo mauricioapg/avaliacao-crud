@@ -33,11 +33,19 @@
   <br>
   <br>
 - Abra o diretório do projeto onde o arquivo pom.xml está localizado e execute:
-  - mvn clean install
+  - ./mvnw clean package
+    <br>
+  - ./mvnw spring-boot:run
+    <br>
+    <br>
+- Se não der certo, execute desta forma:
+  - mvnw.cmd clean package
+    <br>
+  - mvnw.cmd spring-boot:run
     <br>
     <br>
 - Execute o seguinte comando para rodar o projeto e mantê-lo em segundo plano:
-  - start java -jar target/avaliacao-0.0.1-SNAPSHOT
+  - start /B mvnw spring-boot:run
 
 
 ## Resumo
